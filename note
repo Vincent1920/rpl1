@@ -1,0 +1,85 @@
+CREATE TABLE user (
+    ID_user INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'pembeli',
+    email VARCHAR(100) UNIQUE
+);
+CREATE TABLE stok_gudang (
+    ID_gudang INT AUTO_INCREMENT PRIMARY KEY,
+    keterangan VARCHAR(255),
+    tanggal DATE,
+    jumlah INT,
+    jenis_barang VARCHAR(100),
+   barang_masuk INT,
+barang_keluar INT
+
+);
+CREATE TABLE produk (
+    ID_produk INT AUTO_INCREMENT PRIMARY KEY,
+    ID_gudang INT,
+    gambar VARCHAR(255),
+    nama_produk VARCHAR(100),
+    stok INT,
+    ukuran VARCHAR(10),
+    warna VARCHAR(50),
+    harga DECIMAL(10,2),
+    kategori VARCHAR(50),
+    FOREIGN KEY (ID_gudang) REFERENCES stok_gudang(ID_gudang)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE pembeli (
+    ID_pembeli INT AUTO_INCREMENT PRIMARY KEY,
+    ID_user INT,
+    foto VARCHAR(255),
+    nama VARCHAR(100),
+    kode_pos VARCHAR(10),
+    nomor_hp VARCHAR(15),
+    alamat TEXT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE Pemesanan (
+    ID_pesanan INT AUTO_INCREMENT PRIMARY KEY,
+    ID_produk INT,
+    ID_pembeli INT,
+    status_pesanan VARCHAR(50),
+    nama_produk VARCHAR(100),
+    tanggal DATE,
+    satuan VARCHAR(20),
+    metode_pembayaran VARCHAR(50),
+    harga DECIMAL(10,2),
+    jumlah INT,
+    estimasi_tiba DATE,
+    bukti_transfer VARCHAR(255),
+
+    -- Foreign Key
+    CONSTRAINT fk_produk FOREIGN KEY (ID_produk) REFERENCES produk(ID_produk) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_pembeli FOREIGN KEY (ID_pembeli) REFERENCES pembeli(ID_pembeli) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE pembayaran (
+    ID_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
+    ID_pesanan INT,
+    tanggal_pembayaran DATE,
+    metode_pembayaran VARCHAR(50),
+    jumlah_bayar DECIMAL(10, 2),
+    bukti_transfer VARCHAR(255),
+    FOREIGN KEY (ID_pesanan)
+        REFERENCES Pemesanan(ID_pesanan)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+INSERT INTO `user` (`ID_user`, `username`, `password`, `role`, `email`) VALUES
+(1, 'admin gudang', '$2y$10$Gt4.7bdNZ9cOCEfNSZLiWe8nJIK9hMArYB.Z.W.dfWwRqO3v6yUwO', 'admin_gudang', 'admingudang@gmail.com'),
+(2, 'karyawan', '$2y$10$q3whazsrB7fT1Es/N0TwBOP4XO/4prRJEOnP5XbaQ3309p/Rra8PS', 'karyawan', 'karyawan@gmail.com'),
+(3, 'pembeli', '$2y$10$Ugpz94ME1fO5VvLr7XOC/e7zLHJUNrkbDTl1Wk8dhrucvJZOmGXWC', 'pembeli', 'pembeli@gmail.com'),
+(4, 'pemilik', '$2y$10$W5vRFYQ5YdPXPyfrnwO3Jeimeya7MafFlQiyXlgWuNZQOIZ8CD2vO', 'pemilik', 'pemilik@gmail.com');
+

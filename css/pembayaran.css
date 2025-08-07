@@ -1,0 +1,135 @@
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-top: 100px;
+}
+
+.payment-form label {
+    font-weight: bold;
+}
+
+.payment-form input,
+.payment-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.payment-form .btn-checkout {
+    background-color: #8126c0;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.payment-form .btn-checkout:hover {
+    background-color: #6a1aab;
+}
+
+.pembayaran-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+}
+
+.produk-list {
+  flex: 2;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.produk-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.produk-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.produk-info h4 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+
+.produk-info p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.produk-total {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pembayaran-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+}
+
+.produk-list {
+  flex: 2;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.produk-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.produk-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.produk-info h4 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+
+.produk-info p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.produk-total {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}

@@ -1,0 +1,208 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    
+  }
+  body {
+    padding: 10px;
+  }
+  header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: solid 1px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1); /* bayangan bawah */
+    background-color: white; /* wajib kalau mau bayangannya kelihatan */
+    z-index: 99; /* opsional, biar nggak ketimpa elemen lain */
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    
+  }
+  .search {
+    display: flex;
+    align-items: center;
+  }
+  .search input {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-right: none;
+  }
+  .search button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+  }
+  .icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .icons a{
+    color: #000;
+    text-decoration: none;
+  }
+
+  .profile {
+    position: relative;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid black;
+    display: none;
+    flex-direction: column;
+    width: 150px;
+  }
+
+  .dropdown a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    border-top: 1px solid black;
+  }
+
+  .dropdown a i {
+    margin-right: 8px;
+  }
+  .icons span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .cta {
+    height: 60vh;
+    width: 100%;
+    background: url(../img/datar.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* teks di kiri */
+  }
+  
+  .cta-text {
+    padding-left: 80px; /* geser isi ke kanan */
+    color: black; /* biar kelihatan kalau background gelap */
+  }
+  
+  .cta-text h6 {
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    margin-bottom: 14px;
+  }
+  
+  .cta-text h4 {
+    font-size: 3.3rem;
+    line-height: 1.2;
+    letter-spacing: .6rem;
+    margin-bottom: 30px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 13px 25px;
+    background:#c3825e;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all .35s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-5px);
+    background: black;
+  }
+  
+  .category {
+    margin-bottom: 15px;
+  }
+
+  .new-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 kolom tetap */
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  
+  .box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: 0.2s ease;
+    max-width: 100%;
+  }
+  
+  .box:hover {
+    transform: scale(0.96) translateY(-3px);
+    cursor: pointer;
+  }
+  
+  .box img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 6px;
+  }
+  
+  .box h5 {
+    font-size: 14px;
+    margin: 8px 0 4px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .box h6 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .sale {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #c3825e;
+    color: white;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+  
+   .bob{
+    clear: rgb(254, 253, 253);
+  }

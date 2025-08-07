@@ -1,0 +1,154 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 3px solid black;
+  }
+
+  header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .cart-icon {
+    font-size: 24px;
+  }
+
+  main {
+    padding: 40px;
+  }
+
+  .title {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  .cart-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.cart-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+.item-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-details h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.item-details p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.quantity-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.quantity-form button {
+  width: 30px;
+  height: 30px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.quantity-form input[type="text"] {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.hapus-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hapus-btn:hover {
+  background-color: #c0392b;
+}
+
+.item-subtotal {
+  font-weight: bold;
+  font-size: 16px;
+  min-width: 120px;
+  text-align: right;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 30px;
+}
+
+.checkout-section {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  background-color: #c3825e;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background-color: #d89b7a;
+}
+
