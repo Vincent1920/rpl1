@@ -13,10 +13,98 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
     <title>pembayaran - NEEKE</title>
 </head>
 
 <body>
+
+    <style>
+        .payment-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .payment-card label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .payment-card input,
+        .payment-card select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 100%;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .payment-card button {
+            background-color: #8126c0;
+            color: white;
+            font-weight: 600;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+
+        .bob {
+            background-color: #6a1fa1;
+        }
+
+        .dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            min-width: 160px;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 10px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f1f1f1;
+        }
+    </style>
+
     <?php
 session_start();
 include "../php/db.php";
@@ -35,13 +123,6 @@ include "../php/db.php";
     $stmt->execute();
     $result = $stmt->get_result();
 
-// $result = mysqli_query($conn, $query);
-?>
-
-
-    <?php
-session_start();
-include '../php/db.php'; // koneksi ke database
 
 $id_user = $_SESSION['ID_user'];
 
@@ -59,141 +140,193 @@ if (!$data || empty($data['alamat'])) {
 ?>
 
 
-    <header>
-        <div class="logo">
-            <a href="../index.php">
-                NEEKE
-            </a>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm ">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold" href="../index.php">NEEKE</a>
 
-        <div class="search">
-            <input type="text" placeholder="Search">
-            <button>SEARCH</button>
-        </div>
+            <!-- Tombol toggle untuk mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="icons">
-            <a href="../pengiriman/pengiriman.php">
-                <i data-feather="truck"></i>
-            </a>
-            <i data-feather="shopping-cart"></i>
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-            <div class="profile" onclick="toggleDropdown()">
-                <?php if (isset($_SESSION['username'])): ?>
-                <i data-feather="user"></i> <?php echo $_SESSION['username']; ?>
-                <i data-feather="chevron-down"></i>
 
-                <div class="dropdown" id="dropdownMenu">
-                    <?php if ($_SESSION['role'] === 'pembeli'): ?>
-                    <a href="../biodata/biodata.php"><i data-feather="id-card"></i> BIODATA</a>
-                    <?php elseif ($_SESSION['role'] === 'karyawan'): ?>
-                    <a href="../karyawan/dashboard.php"><i data-feather="tool"></i> Halaman Karyawan</a>
+                <!-- Icon Menu & Profil -->
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="../pengiriman/pengiriman.php">
+                            <i data-feather="truck"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="../keranjang/keranjang.php">
+                            <i data-feather="shopping-cart"></i>
+                        </a>
+                    </li>
+
+
+
+
+                    <!-- Dropdown Profil -->
+
+                    <?php
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    ?>
+
+                    <?php if (!empty($_SESSION['username'])): ?>
+                    <div class="dropdown-wrapper">
+                        <button class="dropdown-toggle-btn" id="dropdownToggle">
+                            <i data-feather="user"></i> <?= htmlspecialchars($_SESSION['username']); ?>
+                            <i data-feather="chevron-down"></i>
+                        </button>
+
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <?php if ($_SESSION['role'] === 'pembeli'): ?>
+                            <a href="../biodata/biodata.php">
+                                <i data-feather="id-card"></i> Biodata
+                            </a>
+                            <?php elseif ($_SESSION['role'] === 'karyawan'): ?>
+                            <a href="../karyawan/home.php">
+                                <i data-feather="tool"></i> Halaman Karyawan
+                            </a>
+                            <?php endif; ?>
+
+                            <a href="../php/login/logout.php" class="text-danger">
+                                <i data-feather="log-out"></i> Log Out
+                            </a>
+                        </div>
+                    </div>
+
+                    <?php else: ?>
+                    <a href="login/login.php" class="login-link">
+                        <i data-feather="user"></i> Login
+                    </a>
                     <?php endif; ?>
 
-                    <a href="../php/login/logout.php"><i data-feather="log-out"></i> LOG OUT</a>
-                </div>
 
-                <?php else: ?>
-                <a href="../login/login.php">
-                    <h3><i data-feather="user"></i> Login</h3>
-                </a>
-                <?php endif; ?>
+                </ul>
             </div>
         </div>
-    </header>
+    </nav>
 
 
 
-    <div class="pembayaran-container">
-        <div class="produk-list">
-            <?php
-                $grandTotal = 0;
-                $totalItem = 0;
-                while ($row = mysqli_fetch_assoc($result)) :
-                    $subtotal = $row['harga'] * $row['jumlah'];
-                    $grandTotal += $subtotal;
-                    $totalItem += $row['jumlah'];
-                ?>
-            <div class="produk-item">
-                <img src="../img/produk/<?= $row['gambar'] ?>" alt="<?= $row['nama_produk'] ?>">
-                <div class="produk-info">
-                    <h4><?= $row['nama_produk'] ?></h4>
-                    <p>Rp <?= number_format($subtotal, 0, ',', '.') ?></p>
+
+    <div class="container my-4">
+        <div class="row">
+            <!-- Daftar Produk -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <?php
+                        $grandTotal = 0;
+                        $totalItem = 0;
+                        while ($row = mysqli_fetch_assoc($result)) :
+                            $subtotal = $row['harga'] * $row['jumlah'];
+                            $grandTotal += $subtotal;
+                            $totalItem += $row['jumlah'];
+                    ?>
+                        <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+                            <img src="../img/produk/<?= $row['gambar'] ?>" alt="<?= $row['nama_produk'] ?>"
+                                class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1"><?= $row['nama_produk'] ?></h5>
+                                <p class="mb-0 text-muted">Rp <?= number_format($subtotal, 0, ',', '.') ?></p>
+                            </div>
+                        </div>
+                        <?php endwhile; ?>
+
+                        <div class="mt-3">
+                            <p class="fw-bold">Total Barang: <?= $totalItem ?></p>
+                            <p class="fw-bold">Harga Total: Rp
+                                <span id="total-harga"><?= number_format($grandTotal, 0, ',', '.') ?></span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <?php endwhile; ?>
 
-            <div class="produk-total">
-                <p><strong>Total Barang:</strong> <?= $totalItem ?></p>
-                <p><strong>Harga Total:</strong> Rp <span
-                        id="total-harga"><?= number_format( $grandTotal,0,',',',') ?></span></p>
+            <!-- Form Pembayaran -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <?php
+                        $id_pembeli = $_SESSION['ID_pembeli'];
+                        $query = mysqli_query($conn, "SELECT ID_pesanan FROM Pemesanan WHERE ID_Pembeli = '$id_pembeli' AND status_pesanan = 'Belum Dibayar'");
+                        $id_pesanan_array = [];
+                        while ($row = mysqli_fetch_assoc($query)) {
+                            $id_pesanan_array[] = $row['ID_pesanan'];
+                        }
+                        $id_pesanan_str = implode(",", $id_pesanan_array);
+                    ?>
 
-            </div>
-        </div>
+                        <!-- Form Pembayaran -->
+                        <form action="../php/pembayaran/pembayaran.php" method="post" enctype="multipart/form-data"
+                            class="payment-form mt-3">
+                            <input type="hidden" name="id_pesanan" value="<?= $id_pesanan_str ?>">
 
-        <div class="pembayaran-cardR">
-            <?php
-                    $id_pembeli = $_SESSION['ID_pembeli'];
+                            <div class="mb-3">
+                                <label for="tanggal" class="form-label">Tanggal Pembayaran</label>
+                                <input type="date" name="tanggal_pembayaran" id="tanggal" value="<?= date('Y-m-d') ?>"
+                                    class="form-control">
+                            </div>
 
-            $query = mysqli_query($conn, "SELECT ID_pesanan FROM Pemesanan WHERE ID_Pembeli = '$id_pembeli' AND status_pesanan = 'Belum Dibayar'");
-            // $query = mysqli_query($conn, "SELECT ID_pesanan FROM Pemesanan WHERE ID_Pembeli = '$id_pembeli' AND status_pesanan = ''");
+                            <div class="mb-3">
+                                <label for="metode" class="form-label">Metode Pembayaran</label>
+                                <select name="metode_pembayaran" id="metode" class="form-select">
+                                    <option value="COD">COD</option>
+                                    <option value="Transfer">Transfer</option>
+                                </select>
+                            </div>
 
-            $id_pesanan_array = [];
-            while ($row = mysqli_fetch_assoc($query)) {
-                $id_pesanan_array[] = $row['ID_pesanan'];
-            }
+                            <div id="bank-options" class="mb-3" style="display: none;">
+                                <label class="form-label">Pilih Bank</label>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>BCA</td>
+                                        <td>1012333567</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BNI</td>
+                                        <td>1012333566</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BRI</td>
+                                        <td>0123335618</td>
+                                    </tr>
+                                </table>
 
-            $id_pesanan_str = implode(",", $id_pesanan_array);
-            //echo "Debug: ID_Pesanan = " . $id_pesanan_str;
-            ?>
+                                <label for="bukti" class="form-label">Upload Bukti Transfer</label>
+                                <input type="file" name="bukti_transfer" id="bukti" accept="image/*"
+                                    class="form-control">
+                            </div>
+                            <input type="hidden" id="total-harga" value="<?= $total_harga ?>">
+                            <div class="mb-3">
+                                <label for="jumlah" class="form-label">Jumlah Bayar</label>
+                                <input type="number" name="jumlah_bayar" id="jumlah" class="form-control" required>
+                            </div>
 
-            <form action="../php/pembayaran/pembayaran.php" method="post" enctype="multipart/form-data" class="payment-form">
-                <input type="hidden" name="id_pesanan" value="<?= $id_pesanan_str ?>">
-
-                <label for="tanggal">Tanggal Pembayaran:</label>
-                <input type="date" name="tanggal_pembayaran" id="tanggal" value="<?= date('Y-m-d') ?>">
-
-                <label for="metode">Metode Pembayaran:</label>
-                <select name="metode_pembayaran" id="metode">
-                    <option value="COD">COD</option>
-                    <option value="Transfer">Transfer</option>
-                </select>
-
-                <div id="bank-options" style="display: none;">
-                    <label for="bank">Pilih Bank:</label>
-                    <table border="1">
-                        <tr>
-                            <td>BCA</td>
-                            <td>1012333567</td>
-
-                        </tr>
-                        <tr>
-                            <td>BNI</td>
-                            <td>1012333566</td>
-                        </tr>
-                        <tr>
-                            <td>BRI</td>
-                            <td>0123335618</td>
-                        </tr>
-                    </table>
-                    <br>
-                    <label for="bukti">Upload Bukti Transfer:</label>
-                    <br>
-                    <input type="file" name="bukti_transfer" id="bukti" accept="image/*">
+                            <button type="submit" name="submit" class="btn bob btn-primary w-100">Kirim
+                                Pembayaran</button>
+                        </form>
+                    </div>
                 </div>
-
-                <label for="jumlah">Jumlah Bayar:</label>
-                <input type="number" name="jumlah_bayar" id="jumlah" required>
-
-
-
-                <button type="submit" name="submit" class="btn-checkout">Kirim Pembayaran</button>
-            </form>
-
+            </div>
         </div>
     </div>
 
+    <script>
+        function toggleBankOptions() {
+            const metode = document.getElementById("metode").value;
+            document.getElementById("bank-options").style.display = (metode === "Transfer") ? "block" : "none";
+        }
+    </script>
 
-    <!-- TERBARUUUUUUUUU-->
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -202,7 +335,10 @@ if (!$data || empty($data['alamat'])) {
             const buktiTransfer = document.getElementById('bukti');
             const form = document.querySelector('.payment-form');
             const jumlahInput = document.getElementById('jumlah');
-            const totalHargaEl = document.getElementById('total-harga');
+
+            // Ambil total harga dari tampilan, lalu konversi ke angka
+            const totalHargaText = document.getElementById('total-harga').innerText.replace(/[^\d]/g, '');
+            const totalHarga = parseFloat(totalHargaText);
 
             function toggleBankAndUpload() {
                 if (metodeSelect.value === 'Transfer') {
@@ -219,50 +355,55 @@ if (!$data || empty($data['alamat'])) {
 
             form.addEventListener('submit', function (e) {
                 const metode = metodeSelect.value;
-                const bukti = buktiTransfer;
                 const jumlahBayar = parseFloat(jumlahInput.value);
-                const totalHargaText = totalHargaEl.innerText.replace(/[^\d]/g, '');
-                const totalHarga = parseFloat(totalHargaText);
 
-                // Validasi untuk Transfer
-                if (metode === "Transfer") {
-                    if (bukti.files.length === 0) {
-                        e.preventDefault();
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Bukti transfer wajib diunggah!',
-                            confirmButtonColor: '#8126c0'
-                        });
-                        return;
-                    }
+                // Validasi Transfer
+                if (metode === "Transfer" && buktiTransfer.files.length === 0) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Bukti transfer wajib diunggah!',
+                        confirmButtonColor: '#8126c0'
+                    });
+                    return;
                 }
 
-                // Validasi jumlah bayar
-                if (jumlahBayar < totalHarga) {
+                // Validasi jumlah bayar harus >= total harga
+                // Validasi jumlah bayar harus sama persis
+                if (isNaN(jumlahBayar) || jumlahBayar !== totalHarga) {
                     e.preventDefault();
                     Swal.fire({
                         icon: 'error',
-                        title: 'Jumlah bayar kurang!',
+                        title: 'Jumlah bayar tidak sesuai!',
                         text: `Total yang harus dibayar adalah Rp ${totalHarga.toLocaleString('id-ID')}`,
                         confirmButtonColor: '#8126c0'
                     });
                 }
+
             });
+
+            // Feather Icons
+            feather.replace();
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("dropdownToggle");
+            const menu = document.getElementById("dropdownMenu");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+                });
+
+                // Klik di luar dropdown untuk menutup
+                document.addEventListener("click", function () {
+                    menu.style.display = "none";
+                });
+            }
         });
     </script>
-  <script>
-    feather.replace();
-    const userLoggedIn = true;
 
-    if (!userLoggedIn) {
-      document.querySelector(".profile").style.display = "none";
-    }
-
-    function toggleDropdown() {
-      const dropdown = document.getElementById("dropdownMenu");
-      dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
-    }
-  </script>
 
 
 </body>

@@ -8,6 +8,8 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/pengiriman.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
   <!-- SweetAlert2 -->
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -50,60 +52,148 @@
   WHERE p.ID_pembeli = '$id_pembeli'
     AND p.status_pesanan IN ('Dikemas','Dibayar','Dikirim', 'Selesai')
 ");
+?>
+<style>
+   .dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
 
-  ?>
-  <header>
-    <a href="../index.php" class="logo">NEEKE</a>
-    <div class="search">
-      <input type="text" placeholder="Search">
-      <button>SEARCH</button>
-    </div>
-    <div class="icons">
-      <a href="../pengiriman/pengiriman.php"><i data-feather="truck"></i></a>
-      <a href="../keranjang/keranjang.php"><i data-feather="shopping-cart"></i></a>
-      <div class="profile" onclick="toggleDropdown()">
-        <?php if (isset($_SESSION['username'])): ?>
-        <i data-feather="user"></i> <?php echo $_SESSION['username']; ?>
-        <i data-feather="chevron-down"></i>
-        <div class="dropdown" id="dropdownMenu">
-          <?php if ($_SESSION['role'] === 'pembeli'): ?>
-          <a href="../biodata/biodata.php"><i data-feather="id-card"></i> BIODATA</a>
-          <?php elseif ($_SESSION['role'] === 'karyawan'): ?>
-          <a href="../karyawan/dashboard.php"><i data-feather="tool"></i> Halaman Karyawan</a>
-          <?php endif; ?>
-          <a href="../php/login/logout.php"><i data-feather="log-out"></i> LOG OUT</a>
+        .dropdown-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            min-width: 160px;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 10px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f1f1f1;
+        }
+</style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm ">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold" href="../index.php">NEEKE</a>
+
+            <!-- Tombol toggle untuk mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+
+                <!-- Icon Menu & Profil -->
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="../pengiriman/pengiriman.php">
+                            <i data-feather="truck"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="../keranjang/keranjang.php">
+                            <i data-feather="shopping-cart"></i>
+                        </a>
+                    </li>
+
+
+
+
+                    <!-- Dropdown Profil -->
+
+                    <?php
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    ?>
+
+                    <?php if (!empty($_SESSION['username'])): ?>
+                    <div class="dropdown-wrapper">
+                        <button class="dropdown-toggle-btn" id="dropdownToggle">
+                            <i data-feather="user"></i> <?= htmlspecialchars($_SESSION['username']); ?>
+                            <i data-feather="chevron-down"></i>
+                        </button>
+
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <?php if ($_SESSION['role'] === 'pembeli'): ?>
+                            <a href="../biodata/biodata.php">
+                                <i data-feather="id-card"></i> Biodata
+                            </a>
+                            <?php elseif ($_SESSION['role'] === 'karyawan'): ?>
+                            <a href="../karyawan/home.php">
+                                <i data-feather="tool"></i> Halaman Karyawan
+                            </a>
+                            <?php endif; ?>
+
+                            <a href="../php/login/logout.php" class="text-danger">
+                                <i data-feather="log-out"></i> Log Out
+                            </a>
+                        </div>
+                    </div>
+
+                    <?php else: ?>
+                    <a href="login/login.php" class="login-link">
+                        <i data-feather="user"></i> Login
+                    </a>
+                    <?php endif; ?>
+
+
+                </ul>
+            </div>
         </div>
-        <?php else: ?>
-        <a href="../login/login.php">
-          <h3><i data-feather="user"></i> Login</h3>
-        </a>
-        <?php endif; ?>
-      </div>
-    </div>
-  </header>
-
+    </nav>
  
 
-  <main class="pengiriman-container">
-    <h2>Status Pengiriman</h2>
-    <div class="pengiriman-grid">
-      <?php while ($row = mysqli_fetch_assoc($query)) : ?>
-      <div class="pengiriman-card">
-        <img src="../img/produk/<?php echo $row['gambar']; ?>" alt="<?php echo $row['nama_produk']; ?>">
-        <div class="pengiriman-info">
-          <h3><?php echo $row['nama_produk']; ?></h3>
-          <p><strong>Status:</strong> <?php echo $row['status_pesanan']; ?></p>
-          <p><strong>Jumlah:</strong> <?php echo $row['jumlah']; ?> pcs</p>
-          <p><strong>Total:</strong> Rp<?php echo number_format($row['total_harga'], 0, ',', '.'); ?></p>
-          <p><strong>Estimasi:</strong>
-            <?php echo $row['estimasi_tiba'] ? date('d M Y', strtotime($row['estimasi_tiba'])) : 'Sedang Diproses'; ?>
-          </p>
-
+<main class="container my-5">
+  <h2 class="text-center mb-4">Status Pengiriman</h2>
+  
+  <div class="row g-4">
+    <?php while ($row = mysqli_fetch_assoc($query)) : ?>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-sm h-100">
+          <img src="../img/produk/<?php echo $row['gambar']; ?>" 
+               class="card-img-top" 
+               alt="<?php echo htmlspecialchars($row['nama_produk']); ?>"
+               style="object-fit: cover; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo htmlspecialchars($row['nama_produk']); ?></h5>
+            <p class="mb-1"><strong>Status:</strong> <?php echo htmlspecialchars($row['status_pesanan']); ?></p>
+            <p class="mb-1"><strong>Jumlah:</strong> <?php echo (int)$row['jumlah']; ?> pcs</p>
+            <p class="mb-1"><strong>Total:</strong> Rp<?php echo number_format($row['total_harga'], 0, ',', '.'); ?></p>
+            <p class="mb-0"><strong>Estimasi:</strong> 
+              <?php echo $row['estimasi_tiba'] 
+                ? date('d M Y', strtotime($row['estimasi_tiba'])) 
+                : 'Sedang Diproses'; ?>
+            </p>
+          </div>
         </div>
       </div>
-      <?php endwhile; ?>
-    </div>
-  </main>
+    <?php endwhile; ?>
+  </div>
+</main>
+
 
   <script>
     feather.replace();
@@ -112,6 +202,22 @@
       const dropdown = document.getElementById("dropdownMenu");
       dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
     }
+      document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("dropdownToggle");
+            const menu = document.getElementById("dropdownMenu");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+                });
+
+                // Klik di luar dropdown untuk menutup
+                document.addEventListener("click", function () {
+                    menu.style.display = "none";
+                });
+            }
+        });
   </script>
 </body>
 
