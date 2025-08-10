@@ -114,10 +114,6 @@ $pembeli = $result->fetch_assoc();
     <?php else: ?>
       <div style="text-align: center; width: 100%;">
         <p>Foto belum ada</p>
-        <!-- <form action="uploadFoto.php" method="POST" enctype="multipart/form-data">
-          <input type="file" name="foto" accept="image/*" required style="margin-top: 10px;">
-          <button type="submit" class="edit-btn" style="margin-top: 10px;">Upload Foto</button>
-        </form> -->
       </div>
     <?php endif; ?>
   </div>

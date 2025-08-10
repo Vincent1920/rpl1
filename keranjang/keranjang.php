@@ -154,10 +154,6 @@
   <a href="../pembayaran/pembayaran.php">
     <button type="submit" class="checkout-btn">Checkout</button>
   </a>
-
-  <!-- <form action="../php/keranjang/checkout.php" method="POST">
-    <input type="hidden" name="grand_total" value="<?= $grand_total ?>">
-  </form> -->
 </div>
 </main>
 

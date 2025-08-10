@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nomor_hp = $_POST['nomor_hp'];
 
     // Path absolut untuk folder penyimpanan
-    $folder = __DIR__ . "/../../img/biodata/";
-    $relative_folder = "img/biodata/";
+    $folder = __DIR__ . "../../img/biodata";
+    $relative_folder = "../../img/biodata/";
 
     if (!is_dir($folder)) {
         mkdir($folder, 0777, true); // Buat folder jika belum ada
