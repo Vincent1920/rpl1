@@ -16,6 +16,8 @@
   <!-- <link rel="stylesheet" href="../css/styles.css"> -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -180,7 +182,7 @@ if ($id_pembeli) {
         $alamat = $row['alamat'];
         $nomor_hp = $row['nomor_hp'];
         $kode_pos = $row['kode_pos'];
-        $foto = $row['foto']; // path foto kalau ada
+        $foto = $row['foto']; 
     }
 }
 ?>
@@ -196,8 +198,7 @@ if ($id_pembeli) {
             <div class="d-flex justify-content-center align-items-center border mb-3"
               style="width: 100%; height: 250px; overflow: hidden;">
               <?php if ($foto): ?>
-              <img id="preview-image" src="../img/biodata/<?= htmlspecialchars($foto) ?>" alt="Foto"
-                style="max-width: 100%; max-height: 100%;" />
+              <img id="preview-image" src="../img/biodata/<?= htmlspecialchars($foto) ?>" alt="Foto" style="max-width: 100%; max-height: 100%;" >
               <?php else: ?>
               <span id="preview-text" class="text-muted">Foto belum ada</span>
               <?php endif; ?>

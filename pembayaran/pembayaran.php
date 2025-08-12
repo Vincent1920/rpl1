@@ -253,7 +253,7 @@ if (!$data || empty($data['alamat'])) {
                     <div class="card-body">
                         <?php
                         $id_pembeli = $_SESSION['ID_pembeli'];
-                        $query = mysqli_query($conn, "SELECT ID_pesanan FROM Pemesanan WHERE ID_Pembeli = '$id_pembeli' AND status_pesanan = 'Belum Dibayar'");
+                        $query = mysqli_query($conn, "SELECT ID_pesanan FROM pemesanan WHERE ID_pembeli = '$id_pembeli' AND status_pesanan = 'Belum Dibayar'");
                         $id_pesanan_array = [];
                         while ($row = mysqli_fetch_assoc($query)) {
                             $id_pesanan_array[] = $row['ID_pesanan'];
@@ -262,7 +262,7 @@ if (!$data || empty($data['alamat'])) {
                     ?>
 
                         <!-- Form Pembayaran -->
-                        <form action="../php/pembayaran/pembayaran.php" method="post" enctype="multipart/form-data"
+                        <form  method="POST" action="../php/pembayaran/pembayaran.php" enctype="multipart/form-data"
                             class="payment-form mt-3">
                             <input type="hidden" name="id_pesanan" value="<?= $id_pesanan_str ?>">
 

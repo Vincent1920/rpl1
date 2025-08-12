@@ -39,17 +39,15 @@
     });
   </script>
   <?php endif; ?>
+  
   <?php session_start(); 
   include '../php/db.php'; 
     $id_pembeli = $_SESSION['ID_pembeli'];
-    $query = mysqli_query($conn, "
-  SELECT p.*, pr.nama_produk, pr.gambar, pr.harga,
-         (pr.harga * p.jumlah) AS total_harga
-  FROM Pemesanan p
-  JOIN Produk pr ON p.ID_produk = pr.ID_produk
+    $query = mysqli_query($conn, "SELECT p.*, pr.nama_produk, pr.gambar, pr.harga,(pr.harga * p.jumlah) AS total_harga
+  FROM pemesanan p
+  JOIN produk pr ON p.ID_produk = pr.ID_produk
   WHERE p.ID_pembeli = '$id_pembeli'
-    AND p.status_pesanan IN ('Dikemas','Dibayar','Dikirim', 'Selesai')
-");
+    AND p.status_pesanan IN ('Dikemas','Dibayar','Dikirim', 'Selesai')");
 ?>
 <style>
    .dropdown-wrapper {
