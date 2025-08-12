@@ -145,7 +145,7 @@ $gambar = isset($row['bukti_transfer']) ? htmlspecialchars($row['bukti_transfer'
                             $where[] = "tanggal = '$tanggal'";
                         }
 
-                        $sql = "SELECT * FROM Pemesanan";
+                        $sql = "SELECT * FROM pemesanan";
                         if (!empty($where)) {
                             $sql .= " WHERE " . implode(" AND ", $where);
                         }

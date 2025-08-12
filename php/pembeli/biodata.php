@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nomor_hp = $_POST['nomor_hp'];
 
     // Folder upload
-    $folder = __DIR__ . '/../../img/biodata/';
+    $folder = __DIR__ . '../../img/biodata/';
     if (!is_dir($folder)) {
         mkdir($folder, 0775, true);
     }

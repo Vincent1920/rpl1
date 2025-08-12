@@ -151,7 +151,7 @@ if (!empty($_GET['tanggal'])) {
     $where[] = "tanggal = '$tanggal'";
 }
 
-$sql = "SELECT * FROM Pemesanan";
+$sql = "SELECT * FROM pemesanan";
 if (!empty($where)) {
     $sql .= " WHERE " . implode(" AND ", $where);
 }
