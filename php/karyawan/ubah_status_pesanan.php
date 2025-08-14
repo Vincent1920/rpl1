@@ -6,7 +6,7 @@ if (isset($_POST['id_pesanan'], $_POST['status_pengiriman'], $_POST['estimasi_ti
     $status_pesanan = $_POST['status_pengiriman'];
     $estimasi_tiba = $_POST['estimasi_tiba'];
 
-    $query = "UPDATE Pemesanan 
+    $query = "UPDATE pemesanan 
               SET status_pesanan = '$status_pesanan', 
                   estimasi_tiba = '$estimasi_tiba'
               WHERE ID_pesanan = '$id_pesanan'";

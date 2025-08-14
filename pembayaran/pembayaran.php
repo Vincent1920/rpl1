@@ -301,7 +301,7 @@ if (!$data || empty($data['alamat'])) {
                                 <input type="file" name="bukti_transfer" id="bukti" accept="image/*"
                                     class="form-control">
                             </div>
-                            <input type="hidden" id="total-harga" value="<?= $total_harga ?>">
+                            <input type="hidden" id="total-harga" value="<?= $totalitem?>">
                             <div class="mb-3">
                                 <label for="jumlah" class="form-label">Jumlah Bayar</label>
                                 <input type="number" name="jumlah_bayar" id="jumlah" class="form-control" required>
