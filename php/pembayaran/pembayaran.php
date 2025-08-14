@@ -29,7 +29,7 @@ if ($_FILES['bukti_transfer']['name'] != "") {
     foreach ($id_pesanan_array as $id_pesanan) {
         // Insert ke tabel pembayaran
         mysqli_query($conn, "INSERT INTO pembayaran (ID_pesanan, tanggal_pembayaran, metode_pembayaran, jumlah_bayar, bukti_transfer) VALUES ('$id_pesanan', '$tanggal_pembayaran', '$metode_pembayaran', '$jumlah_bayar', '$bukti_transfer')");
-mysqli_query($conn, "UPDATE Pemesanan 
+mysqli_query($conn, "UPDATE pemesanan 
     SET status_pesanan = 'Dibayar', 
         metode_pembayaran = '$metode_pembayaran',
         bukti_transfer = '$bukti_transfer'
