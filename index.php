@@ -30,7 +30,7 @@
     </div>
 
     <div class="icons">
-      <a href="pengeriman/pengeriman.php">
+      <a href="pengiriman/pengiriman.php">
 
         <i data-feather="truck"></i>
       </a>
