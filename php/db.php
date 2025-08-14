@@ -2,13 +2,11 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+/* The code snippet ` = Dotenv\Dotenv::createImmutable(__DIR__ . '/..'); ->load();` is
+using the Dotenv library in PHP to load environment variables from a `.env` file located one
+directory above the current directory. */
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
-
-// $host = "localhost";
-// $user = "root";
-// $pass = ""; // ganti jika ada password
-// $dbname = "rpl1"; // ganti dengan nama database
 
 $host = $_ENV['DB_HOST'];
 $user = $_ENV['DB_USER'];
