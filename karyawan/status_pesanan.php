@@ -201,7 +201,7 @@ $result = mysqli_query($conn, $query);
     SELECT p.*, b.nama AS nama_pembeli, bayar.bukti_transfer
     FROM pemesanan p
     JOIN pembeli b ON p.ID_pembeli = b.ID_pembeli
-    LEFT JOIN Pembayaran bayar ON p.ID_pesanan = bayar.ID_pesanan
+    LEFT JOIN pembayaran bayar ON p.ID_pesanan = bayar.ID_pesanan
     WHERE p.status_pesanan = 'Dikirim'
 ");
 
@@ -246,7 +246,7 @@ $result = mysqli_query($conn, $query);
     SELECT p.*, b.nama AS nama_pembeli, bayar.bukti_transfer
     FROM pemesanan p
     JOIN pembeli b ON p.ID_pembeli = b.ID_pembeli
-    LEFT JOIN Pembayaran bayar ON p.ID_pesanan = bayar.ID_pesanan
+    LEFT JOIN pembayaran bayar ON p.ID_pesanan = bayar.ID_pesanan
     WHERE p.status_pesanan = 'selesai'
 ");
 
