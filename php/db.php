@@ -1,8 +1,18 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = ""; // ganti jika ada password
-$dbname = "rpl1"; // ganti dengan nama database
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+
+// $host = "localhost";
+// $user = "root";
+// $pass = ""; // ganti jika ada password
+// $dbname = "rpl1"; // ganti dengan nama database
+
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$dbname = $_ENV['DB_PASS'];
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
